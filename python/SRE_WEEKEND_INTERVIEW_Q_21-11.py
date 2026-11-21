@@ -164,6 +164,88 @@ else:
         print("Budget healthy")
 
 
+# 🛠️ SRE-2: alert routing
+
+# File: python/sre2_routing.py
+
+# 📖 Background
+
+# Not every alert should wake someone up at 3 am. Teams use routing rules to decide what happens:
+
+# PAGE: phone call / push to the on-call engineer, right now
+# TICKET: goes into the queue, handled during working hours
+# LOG ONLY: recorded, nobody is notified
+
+# Tools like PagerDuty, Opsgenie and Alertmanager do exactly this.
+
+# 🎯 What your program must do
+# Ask: Severity (critical/warning/info): , cleaned with .strip().lower()
+# Ask: Business hours? (yes/no): , cleaned the same way
+# Route it:
+# Severity	Business hours	Print
+# critical	any	PAGE on-call
+# warning	yes	Create TICKET
+# warning	no	PAGE on-call
+# info	any	LOG only
+# anything else	any	Unknown severity
+# 🧪 Test cases (run all 6)
+# Severity	Hours	Expected
+# critical	no	PAGE on-call
+# CRITICAL	yes	PAGE on-call ← uppercase must still work
+# Warning	yes	Create TICKET
+# warning	no	PAGE on-call
+# info	no	LOG only
+# banana	yes	Unknown severity
+# 💡 New idea: a nested condition
+
+# The warning case has its own if / else inside the elif:
+
+# python
+# if severity == "critical":
+#     ...
+# elif severity == "warning":
+#     if business_hours == "yes":      # ← 8 spaces in
+#         ...
+#     else:
+#         ...
+# elif ...
+
+# ⚠️ Watch the indentation. The inner if/else sits one level deeper than the outer one.
+
+# 🎯 Bonus
+
+# If business hours isn’t yes or no (e.g. maybe), print Invalid business-hours value.
+# 💡 Where should this check go so it doesn’t break the critical and info cases? Think about it.
+
+# 🎤 Interview angle
+
+# “Why not just page for every alert?”
+# → Alert fatigue. If on-call gets paged too often for non-urgent things, people start ignoring pages, and then they miss the real outage. Good SREs page only for things that are urgent, actionable and user-impacting.
+
+# Send your code and all 6 outputs 👍
+
+
+severity = input("Severity (critical/warning/info): ").strip().lower()
+
+business_hours = input("Business hours? (yes/no): ").strip().lower()
+
+
+if severity == "critical":
+    print("PAGE - on call")
+    
+elif severity == "warning":
+    if business_hours == "yes":
+        print("Create TICKET")
+    else:
+        print("PAGE on-call")
+elif severity == "info":
+    print("LOG only")
+    
+        
+else:
+    print("Unknown severity")
+
+
 
 
 
