@@ -54,18 +54,18 @@
 
 # Send your code and output 👍
 
-# total_requests = int(input("Total requests: "))
-# failed_requests = int(input("Failed requests: "))
+total_requests = int(input("Total requests: "))
+failed_requests = int(input("Failed requests: "))
 
-# availability = (total_requests - failed_requests)/(total_requests)*100
+availability = (total_requests - failed_requests)/(total_requests)*100
 
 
-# SLO = 99.9
+SLO = 99.9
 
-# if availability >= SLO:
-#     print(f"Availability: {availability:.2f}% - SLO met ")
-# else:
-#     print(f"Availability: {availability:.2f}% - SLO breached")
+if availability >= SLO:
+    print(f"Availability: {availability:.2f}% - SLO met ")
+ else:
+     print(f"Availability: {availability:.2f}% - SLO breached")
 
 
 
