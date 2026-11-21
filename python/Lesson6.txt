@@ -1,0 +1,113 @@
+#📘 Lesson 5: Conditionals
+# 1. Comparisons give True or False
+cpu = 85
+print (cpu > 80)
+print (cpu < 80)
+print (cpu >=80)
+print (cpu <=80)
+print (cpu == 85)
+print (cpu != 85)
+
+# ⚠️ The most common beginner bug:
+
+# = means store: cpu = 85
+# == means compare: cpu == 85
+
+# 2. if: run code only when something is true
+
+
+if cpu > 50:
+    print("High CPU!")
+
+print("Check finished")
+
+# 3 rules (break any one and you get an error):
+
+# The if line ends with a colon :
+# The code inside is indented by 4 spaces (VS Code does it when you press Tab)
+# The indented lines belong to the if. The un-indented line after it runs always.
+
+# Change cpu = 85 to cpu = 50 and run it again. Only Check finished prints.
+
+3. if / else: one or the other
+
+disk = 45
+
+if disk > 80:
+    print("Disk almost full")
+else:
+    print("Disk OK")
+
+Exactly one of the two blocks runs, never both and never neither.
+
+4. if / elif / else: several levels
+
+disk = 60
+if (disk > 80):
+    print("High DISK usage detected")
+elif (disk>=60):
+    print("DISK space needs to be cleared")
+else:
+    print("DISK USAGE is OK")
+
+Python checks from top to bottom and stops at the first true condition.
+
+⚠️ The order matters. This version is wrong:
+
+disk = 92
+
+if disk >= 70:
+    print("WARNING")      # 92 >= 70 is True → stops here ❌
+elif disk >= 90:
+    print("CRITICAL")     # never reached!
+
+👉 Always check the most severe condition first.
+
+5. Combining conditions: and, or, not
+
+
+cpu = 85
+memory = 92
+
+if cpu > 80 and memory > 90:
+    print("Both high: page the on-call")
+if cpu > 90 or memory > 95:
+    print("At least one is critical")
+
+is_maintenance = False
+if not is_maintenance:
+    print("ALERTS are active")
+
+
+and	- True only if both are True	
+
+or - True if at least one is True
+
+6. Comparing strings
+
+env = "Prod"
+
+print( env == "prod") # False -> case sensitive
+print(env.lower()) # prod
+
+log = "2026-11-20 ERROR db timeout"
+print("ERROR" in log) # True
+print("WARN" in log) # False
+
+-> in is used all the time for scanning log lines.
+
+7. A range check in one line
+
+status = 404
+
+if 400 <= status < 500:
+    print("Client error")
+
+This means "status is between 400(included) and 500(not included)".
+
+🏭 How SREs use this
+Alert severity: CPU, disk or latency above a threshold → OK / WARNING / CRITICAL
+HTTP status codes: 2xx success, 4xx client problem, 5xx server problem (that’s on you)
+SLO checks: is availability ≥ 99.9%? Met or breached?
+Log scanning: if "ERROR" is in the line, count it
+
