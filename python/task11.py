@@ -62,15 +62,21 @@ letters = 0
 digits = 0
 other = 0
 valid = True
+has_upper = False
 for ch in hostname:
     if ch.isalpha():
         letters += 1
+        if ch.isupper():
+            has_upper = True
+        
+
     elif ch.isdigit():
         digits += 1
     else:
         other += 1
         if ch != "-" and ch != ".":
             valid = False
+        
 print(f"Letters: {letters}, Digits: {digits}, Other: {other}")
 total = letters + digits + other
 print(f"Total : {total} (matches length: {total == len(hostname)}) ")
@@ -79,3 +85,6 @@ if valid:
     print("Valid hostname")
 else:
     print("Invalid hostname")
+
+if has_upper:
+    print("Warning: hostname contains uppercase letters")
