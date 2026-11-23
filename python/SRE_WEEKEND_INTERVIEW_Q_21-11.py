@@ -64,7 +64,7 @@ SLO = 99.9
 
 if availability >= SLO:
     print(f"Availability: {availability:.2f}% - SLO met ")
- else:
+else:
      print(f"Availability: {availability:.2f}% - SLO breached")
 
 
