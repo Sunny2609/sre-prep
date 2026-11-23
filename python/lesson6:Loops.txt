@@ -1,0 +1,111 @@
+📘 Lesson 6: Loops
+
+A loop repeats code. In SRE work you repeat things all the time: retry a request, check every server, read every log line, wait until a service is up.
+
+1. for with range(): repeat a fixed number of times
+
+for i in range(5):
+    print(f"Health check #{i}")
+
+
+Output:
+
+Health check #0
+Health check #1
+Health check #2
+Health check #3
+Health check #4
+range(5) gives 0, 1, 2, 3, 4. It starts at 0 and stops before 5.
+i is the loop variable; it changes each time round.
+Same rules as if: colon : and 4-space indentation.
+
+2. range() variations
+
+for i in range(1, 6):        # 1 2 3 4 5     (start, stop)
+    print(i)
+
+for i in range(0, 20, 5):    # 0 5 10 15     (start, stop, step)
+    print(i)
+
+for i in range(5, 0, -1):    # 5 4 3 2 1     (counting down)
+    print(i)
+
+⚠️ The stop number is never included. range(1, 6) stops at 5. This "off-by-one" is the most common loop bug.
+
+3. Looping over a string
+
+for ch in "web-01":
+    print(ch)
+
+Prints w, e, b, -, 0, 1, one per line. A for loop can walk through anything that has items in order.
+
+4. Accumulating: count or total inside a loop
+python
+total = 0
+for i in range(1, 6):
+    total = total + i      # or: total += i
+print(total)               # 15
+
+Pattern: create the variable before the loop, update it inside, use it after.
+
+host = "db-01.prod"
+digits = 0
+for ch in host:
+    if ch.isdigit():
+        digits += 1
+print(f"{host} has {digits} digits")   # 2
+
+5. while: repeat until a condition changes
+
+attempt = 1
+while attempt <= 3:
+    print(f"Attempt {attempt}")
+    attempt += 1
+print("Done")
+for = you know how many times.
+while = you repeat until something happens.
+
+⚠️ Infinite loop: forget attempt += 1 and the condition never becomes False, so it runs forever. Stop it with Ctrl + C (that's the KeyboardInterrupt you've seen 😄).
+
+6. break: stop the loop early
+
+for attempt in range(1, 6):
+    print(f"Connecting... attempt {attempt}")
+    if attempt == 3:
+        print("Connected!")
+        break
+print("After the loop")
+
+Attempts 4 and 5 never happen. break jumps straight out of the loop.
+
+7. continue: skip to the next round
+
+for port in range(1, 8):
+    if port == 4:
+        continue          # skip port 4
+    print(f"Scanning port {port}")
+
+continue skips the rest of this round only; the loop keeps going.
+
+8. while True + break: the retry pattern ⭐
+
+attempt = 0
+while True:
+    attempt += 1
+    answer = input("Is the service up? (yes/no): ").strip().lower()
+    if answer == "yes":
+        print(f"Service up after {attempt} checks")
+        break
+    print("Not yet, checking again...")
+
+Used everywhere in SRE: wait for a pod to be ready, retry an API call, poll a deploy until it finishes. (Remember yesterday's while … break in C2? This is what while is actually for.)
+
+9. Nested loops: a loop inside a loop
+python
+for rack in range(1, 3):
+    for server in range(1, 4):
+        print(f"rack{rack}-server{server}")
+
+Prints 6 names: the inner loop runs fully for each round of the outer loop. (2 × 3 = 6, worth remembering for Big-O later.)
+
+
