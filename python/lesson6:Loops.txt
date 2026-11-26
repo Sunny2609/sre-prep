@@ -101,7 +101,7 @@ while True:
 Used everywhere in SRE: wait for a pod to be ready, retry an API call, poll a deploy until it finishes. (Remember yesterday's while … break in C2? This is what while is actually for.)
 
 9. Nested loops: a loop inside a loop
-python
+
 for rack in range(1, 3):
     for server in range(1, 4):
         print(f"rack{rack}-server{server}")
