@@ -24,15 +24,28 @@ prefix = input("Prefix: ").strip().lower()
 count = int(input("Count: "))
 environment = input("Environment: ").strip().lower()
 
+
 if count > 99:
         width = 3
 else:
         width = 2
 
-for i in range(1,count+1):
-          print(f"{prefix}-{i:0{width}d}.{environment}")
+names = []
 
+for i in range(1,count+1):
+        name = f"{prefix}-{i:0{width}d}.{environment}"
+        print(name)
+        names.append(name)
+        
+if len(names) == 0:
+        print("Generated 0 hostnames")
+elif len(names) == 1:
+        print(f"Generated 1 hostname: {names[0]}")
+else:
+        print(f"Generated {len(names)} hostnames: {names[0]} to {names[-1]}")
           
+
+
 
    
           

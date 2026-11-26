@@ -102,7 +102,7 @@ for i, server in enumerate(servers, start=1):
 # 2. web-02
 # 3. db-01
 
-# enumerate gives you two vakyes each round: the counter and the item
+# enumerate gives you two values each round: the counter and the item
 
 
 #  9. Building a list inside a loop ( the collect pattern)
